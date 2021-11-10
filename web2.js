@@ -537,39 +537,21 @@ template.innerHTML = `
       </ul>
     </section>
   </div>
-
-  <script src="https://html.dev.credmo.com/assets/js/zepto.min.js"></script>
-  <script src="https://html.dev.credmo.com/assets/js/utils.js"></script>
-  <script src="https://html.dev.credmo.com/common/collapsible/collapsible.js"></script>
-  <script>
-    (function () {
-      $(document).on("click", ".history-title", () => {
-        $(".history-list").toggle();
-        $(".show-all").toggle();
-
-        const title = $(".history-title").text();
-        if (title.indexOf("Show") === 0) {
-          $(".history-title").text(title.replace("Show", "Hide"));
-        } else {
-          $(".history-title").text(title.replace("Hide", "Show"));
-        }
-      });
-
-      window.utils.ensure(".center-block", () => {
-        $(".center-block").removeAttr("onclick");
-      });
-    })();
-  </script>
+  
 `;
 
 class ArrayCreditLock extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        // this.attachShadow({mode: 'open'});
+        // this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this._contents = new DocumentFragment();
+        this._contents.appendChild(template.content.cloneNode(true));
     }
 
     connectedCallback() {
+        this.appendChild(this._contents);
+        this.addScripts();
         fetch(this.getAttribute('url'))
         .then(res => res.json())
         .then(data => {
@@ -578,7 +560,7 @@ class ArrayCreditLock extends HTMLElement {
         })
         .catch(error => {
         console.log('There was an error retrieving data', Error);
-        })
+        });
     }
 
     disconnectedCallback() {
@@ -590,9 +572,9 @@ class ArrayCreditLock extends HTMLElement {
 // <p class="show-all">Show All (5)</p>
 
     populateList(data) {
-      const shadowRoot = this.shadowRoot;
-      let ul = shadowRoot.getElementById('history-ul');
-      let showAll = shadowRoot.querySelector('.show-all');
+    //   const shadowRoot = this.shadowRoot;
+      let ul = document.getElementById('history-ul');
+      let showAll = document.querySelector('.show-all');
       showAll.textContent = `Show All (${data.length})`;
 
       data.forEach( e => {
@@ -648,7 +630,79 @@ class ArrayCreditLock extends HTMLElement {
       );
     }
 
+/* 
+<script src="https://html.dev.credmo.com/assets/js/zepto.min.js"></script>
+  <script src="https://html.dev.credmo.com/assets/js/utils.js"></script>
+  <script src="https://html.dev.credmo.com/common/collapsible/collapsible.js"></script>
+  <script>
+    (function () {
+      $(document).on("click", ".history-title", () => {
+        $(".history-list").toggle();
+        $(".show-all").toggle();
 
+        const title = $(".history-title").text();
+        if (title.indexOf("Show") === 0) {
+          $(".history-title").text(title.replace("Show", "Hide"));
+        } else {
+          $(".history-title").text(title.replace("Hide", "Show"));
+        }
+      });
+
+      window.utils.ensure(".center-block", () => {
+        $(".center-block").removeAttr("onclick");
+      });
+    })();
+  </script> 
+  */
+
+addScripts() {
+      this.addScript1();
+      this.addScript2();
+      this.addScript3();
+  }
+
+  addScript1() {
+        var script1 = document.createElement('script');
+        script1.src = "https://html.dev.credmo.com/assets/js/zepto.min.js";
+        document.body.appendChild(script1); 
+  }
+
+  addScript2() {
+        var script2 = document.createElement('script');
+        script2.src = "https://html.dev.credmo.com/assets/js/utils.js"; 
+        document.body.appendChild(script2); 
+  }
+
+  addScript3() {
+    var script3 = document.createElement('script');
+    script3.src = "https://html.dev.credmo.com/common/collapsible/collapsible.js";
+    document.body.appendChild(script3);  
+  }
+
+  addScript4() {
+    var script4 = document.createElement('script');
+    script4.textContent = `
+        (function () {
+        $(document).on("click", ".history-title", () => {
+          $(".history-list").toggle();
+          $(".show-all").toggle();
+  
+          const title = $(".history-title").text();
+          if (title.indexOf("Show") === 0) {
+            $(".history-title").text(title.replace("Show", "Hide"));
+          } else {
+            $(".history-title").text(title.replace("Hide", "Show"));
+          }
+        });
+  
+        window.utils.ensure(".center-block", () => {
+          $(".center-block").removeAttr("onclick");
+        });
+      })();
+    `
+    document.body.appendChild(script4);  
+  }
+        
 
 
 
