@@ -537,29 +537,6 @@ template.innerHTML = `
       </ul>
     </section>
   </div>
-
-  <script src="https://html.dev.credmo.com/assets/js/zepto.min.js"></script>
-  <script src="https://html.dev.credmo.com/assets/js/utils.js"></script>
-  <script src="https://html.dev.credmo.com/common/collapsible/collapsible.js"></script>
-  <script>
-    (function () {
-      $(document).on("click", ".history-title", () => {
-        $(".history-list").toggle();
-        $(".show-all").toggle();
-
-        const title = $(".history-title").text();
-        if (title.indexOf("Show") === 0) {
-          $(".history-title").text(title.replace("Show", "Hide"));
-        } else {
-          $(".history-title").text(title.replace("Hide", "Show"));
-        }
-      });
-
-      window.utils.ensure(".center-block", () => {
-        $(".center-block").removeAttr("onclick");
-      });
-    })();
-  </script>
 `;
 
 class ArrayCreditLock extends HTMLElement {
@@ -615,8 +592,31 @@ class ArrayCreditLock extends HTMLElement {
           `;
           ul.appendChild(li);
         }
-      
       })
+
+      //EVENT LISTENERS
+      let questions = shadowRoot.querySelectorAll('.question');
+      questions.forEach( e => {
+        e.addEventListener('click', () => {
+          if (e.nextElementSibling.style.display !== 'block') {
+            e.nextElementSibling.style.display = 'block';
+          } else {
+            e.nextElementSibling.style.display = 'none';
+          }
+        })
+      });
+
+      let historyTitle = shadowRoot.querySelector('.history-title');
+      historyTitle.addEventListener('click', () => {
+        if (historyTitle.nextElementSibling.style.display !== 'none') {
+          historyTitle.nextElementSibling.style.display = 'none';
+        } else {
+          historyTitle.nextElementSibling.style.display = 'block';
+        }
+      
+      });
+
+
     }
 
     convertDateTime(e) {
@@ -647,8 +647,6 @@ class ArrayCreditLock extends HTMLElement {
         year + '-' + day + '-' + month + ' ' + hour + ':' + minute + ampm + ' GMT'
       );
     }
-
-
 
 
 
