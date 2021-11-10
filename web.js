@@ -594,17 +594,17 @@ class ArrayCreditLock extends HTMLElement {
       data.forEach( e => {
         let li = document.createElement('li');
         li.classList.add('history-list');
-        let day = e.date.substring(0, 10);
-        let fulltime = e.date.substring(11,16);
-        let hour = e.date.substring(11,13);
-        let minute = e.date.substring(14,16);
-        let ampm = 'am';
+        // let day = e.date.substring(0, 10);
+        // let fulltime = e.date.substring(11,16);
+        // let hour = e.date.substring(11,13);
+        // let minute = e.date.substring(14,16);
+        // let ampm = 'am';
 
-        let time = this.convertTime(hour, minute, ampm);
+        let dateTime = this.convertDateTime(e);
 
         if (e.type === 'enrollment') {
           li.innerHTML = `
-            <span class="date">${day} ${time} GMT</span>
+            <span class="date">${dateTime}</span>
             <span class="lock">Locked</span>
           `;
           ul.appendChild(li);
@@ -612,7 +612,7 @@ class ArrayCreditLock extends HTMLElement {
 
         if (e.type !== 'enrollment') {
           li.innerHTML = `
-            <span class="date">${day} ${time} GMT</span>
+            <span class="date">${dateTime}</span>
             <span class="lock">Unlocked</span>
           `;
           ul.appendChild(li);
@@ -621,7 +621,14 @@ class ArrayCreditLock extends HTMLElement {
       })
     }
 
-    convertTime(hour, minute, ampm) {
+    convertDateTime(e) {
+
+      let day = e.date.substring(0, 10);
+      let fulltime = e.date.substring(11,16);
+      let hour = e.date.substring(11,13);
+      let minute = e.date.substring(14,16);
+      let ampm = 'am';
+
       if (parseInt(hour, 10) > 12 && parseInt(hour, 10) < 24) {
         ampm = 'pm';
         hour = `${parseInt(hour, 10) - 12}`;
@@ -637,7 +644,7 @@ class ArrayCreditLock extends HTMLElement {
       }
 
       return (
-        hour + ':' + minute + ampm
+        day + ' ' + hour + ':' + minute + ampm + ' GMT'
       );
     }
 
