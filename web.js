@@ -570,7 +570,7 @@ class ArrayCreditLock extends HTMLElement {
     }
 
     connectedCallback() {
-        fetch('./test-1_data.json')
+        fetch(this.getAttribute('url'))
         .then(res => res.json())
         .then(data => {
         console.log(data);
@@ -594,12 +594,6 @@ class ArrayCreditLock extends HTMLElement {
       data.forEach( e => {
         let li = document.createElement('li');
         li.classList.add('history-list');
-        // let day = e.date.substring(0, 10);
-        // let fulltime = e.date.substring(11,16);
-        // let hour = e.date.substring(11,13);
-        // let minute = e.date.substring(14,16);
-        // let ampm = 'am';
-
         let dateTime = this.convertDateTime(e);
 
         if (e.type === 'enrollment') {
@@ -622,8 +616,10 @@ class ArrayCreditLock extends HTMLElement {
     }
 
     convertDateTime(e) {
-
-      let day = e.date.substring(0, 10);
+      let fulldate = e.date.substring(0, 10);
+      let year = e.date.substring(0, 4);
+      let month = e.date.substring(5, 7);
+      let day = e.date.substring(8,10);
       let fulltime = e.date.substring(11,16);
       let hour = e.date.substring(11,13);
       let minute = e.date.substring(14,16);
@@ -644,20 +640,9 @@ class ArrayCreditLock extends HTMLElement {
       }
 
       return (
-        day + ' ' + hour + ':' + minute + ampm + ' GMT'
+        year + '-' + day + '-' + month + ' ' + hour + ':' + minute + ampm + ' GMT'
       );
     }
-
-  //   changeHtml(data) {
-  //     var shadowRoot = this.shadowRoot;
-  //     let menu = shadowRoot.getElementById('menu');
-
-  //     for (let i = 0; i < data.length; i++) {
-  //         let li = document.createElement('li');
-  //         li.textContent = data[i].type;
-  //         menu.appendChild(li);
-  //     }
-  // }
 
 
 
