@@ -552,6 +552,7 @@ class ArrayCreditLock extends HTMLElement {
         .then(data => {
         console.log(data);
         this.populateList(data);
+        this.createEventListeners(data);
         })
         .catch(error => {
         console.log('There was an error retrieving data', Error);
@@ -568,9 +569,10 @@ class ArrayCreditLock extends HTMLElement {
 
     populateList(data) {
       const shadowRoot = this.shadowRoot;
-      let ul = shadowRoot.getElementById('history-ul');
-      let showAll = shadowRoot.querySelector('.show-all');
+      const ul = shadowRoot.getElementById('history-ul');
+      const showAll = shadowRoot.querySelector('.show-all');
       showAll.textContent = `Show All (${data.length})`;
+      console.log(data.length);
 
       data.forEach( e => {
         let li = document.createElement('li');
@@ -592,10 +594,53 @@ class ArrayCreditLock extends HTMLElement {
           `;
           ul.appendChild(li);
         }
-      })
 
-      //EVENT LISTENERS
-      let questions = shadowRoot.querySelectorAll('.question');
+        if (data.indexOf(e) > 3) {
+          li.style.display = 'none';
+        }
+
+      })
+    }
+    
+    //EVENT LISTENERS
+    createEventListeners(data) {
+      const shadowRoot = this.shadowRoot;
+      const questions = shadowRoot.querySelectorAll('.question');
+      const historyTitle = shadowRoot.querySelector('.history-title');
+      const showAll = shadowRoot.querySelector('.show-all');
+      const historyItems = shadowRoot.querySelectorAll('.history-list');
+
+      historyTitle.addEventListener('click', () => {
+        if (historyTitle.nextElementSibling.style.display !== 'none') {
+          historyTitle.nextElementSibling.style.display = 'none';
+          historyTitle.innerHTML = 'Show lock history';
+          showAll.style.display = 'none';
+
+          for (let i = 4; i<data.length; i++) {
+            historyItems[i].style.display = 'none';
+          }
+
+        } else {
+          historyTitle.nextElementSibling.style.display = 'block';
+          historyTitle.innerHTML = 'Hide lock history';
+          showAll.style.display = 'block';
+        }
+      });
+
+      showAll.addEventListener('click', () => {
+        if (showAll.textContent !== 'Show Less') {
+          historyItems.forEach( e => {
+            e.style.display = 'block';
+          })
+          showAll.textContent = 'Show Less';
+        } else {
+          for (let i = 4; i<data.length; i++) {
+            historyItems[i].style.display = 'none';
+          }
+          showAll.textContent = `Show All (${data.length})`;
+        }
+      });
+
       questions.forEach( e => {
         e.addEventListener('click', () => {
           if (e.nextElementSibling.style.display !== 'block') {
@@ -606,19 +651,9 @@ class ArrayCreditLock extends HTMLElement {
         })
       });
 
-      let historyTitle = shadowRoot.querySelector('.history-title');
-      historyTitle.addEventListener('click', () => {
-        if (historyTitle.nextElementSibling.style.display !== 'none') {
-          historyTitle.nextElementSibling.style.display = 'none';
-        } else {
-          historyTitle.nextElementSibling.style.display = 'block';
-        }
-      
-      });
-
-
     }
 
+    //TIMESTAMP CONVERTER
     convertDateTime(e) {
       let fulldate = e.date.substring(0, 10);
       let year = e.date.substring(0, 4);
