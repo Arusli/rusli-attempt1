@@ -725,13 +725,16 @@ class ArrayCreditLock extends HTMLElement {
       });
 
       //QUESTIONS SECTION
-      //(I used e.parentElement.parentElement to make entire list item clickable.)
+      //I used e.parentElement.parentElement to make entire list item clickable.
+      //e.parentElement.parentElement.querySelector('.collapsible__open-close-icon') targets the svg container div.
       questions.forEach( e => {
         e.parentElement.parentElement.addEventListener('click', () => {
           if (e.nextElementSibling.style.display !== 'block') {
             e.nextElementSibling.style.display = 'block';
+            e.parentElement.parentElement.querySelector('.collapsible__open-close-icon').style = 'transform: rotate(180deg)';
           } else {
             e.nextElementSibling.style.display = 'none';
+            e.parentElement.parentElement.querySelector('.collapsible__open-close-icon').style = '';
           }
         })
       });
@@ -765,7 +768,7 @@ class ArrayCreditLock extends HTMLElement {
       }
 
       return (
-        year + '-' + day + '-' + month + ' ' + hour + ':' + minute + ampm + ' GMT'
+        year + '-' + day + '-' + month + ' ' + parseInt(hour) + ':' + minute + ampm + ' GMT'
       );
     }
 
