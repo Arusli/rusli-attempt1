@@ -566,7 +566,6 @@ class ArrayCreditLock extends HTMLElement {
       const ul = shadowRoot.getElementById('history-ul');
       const showAll = shadowRoot.querySelector('.show-all');
       showAll.textContent = `Show All (${data.length})`;
-      console.log(data.length);
 
       data.forEach( e => {
         let li = document.createElement('li');
