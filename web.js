@@ -645,8 +645,9 @@ class ArrayCreditLock extends HTMLElement {
       });
 
       //Questions Section
+      //(I used e.parentElement.parentElement to make entire list item clickable.)
       questions.forEach( e => {
-        e.addEventListener('click', () => {
+        e.parentElement.parentElement.addEventListener('click', () => {
           if (e.nextElementSibling.style.display !== 'block') {
             e.nextElementSibling.style.display = 'block';
           } else {
