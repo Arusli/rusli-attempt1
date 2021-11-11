@@ -538,6 +538,28 @@ template.innerHTML = `
     </section>
   </div>
   
+  <script src="https://html.dev.credmo.com/assets/js/zepto.min.js"></script>
+  <script src="https://html.dev.credmo.com/assets/js/utils.js"></script>
+  <script src="https://html.dev.credmo.com/common/collapsible/collapsible.js"></script>
+  <script>
+    (function () {
+      $(document).on("click", ".history-title", () => {
+        $(".history-list").toggle();
+        $(".show-all").toggle();
+
+        const title = $(".history-title").text();
+        if (title.indexOf("Show") === 0) {
+          $(".history-title").text(title.replace("Show", "Hide"));
+        } else {
+          $(".history-title").text(title.replace("Hide", "Show"));
+        }
+      });
+
+      window.utils.ensure(".center-block", () => {
+        $(".center-block").removeAttr("onclick");
+      });
+    })();
+  </script> 
 `;
 
 class ArrayCreditLock extends HTMLElement {
@@ -551,7 +573,7 @@ class ArrayCreditLock extends HTMLElement {
 
     connectedCallback() {
         this.appendChild(this._contents);
-        this.addScripts();
+        // this.addScripts();
         fetch(this.getAttribute('url'))
         .then(res => res.json())
         .then(data => {
@@ -559,7 +581,7 @@ class ArrayCreditLock extends HTMLElement {
         this.populateList(data);
         })
         .catch(error => {
-        console.log('There was an error retrieving data', Error);
+        console.log('There was an error retrieving data', error);
         });
     }
 
