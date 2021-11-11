@@ -615,7 +615,8 @@ class ArrayCreditLock extends HTMLElement {
           historyTitle.nextElementSibling.style.display = 'none';
           historyTitle.innerHTML = 'Show lock history';
           showAll.style.display = 'none';
-
+          showAll.textContent = `Show All (${data.length})`
+          
           for (let i = 4; i<data.length; i++) {
             historyItems[i].style.display = 'none';
           }
