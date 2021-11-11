@@ -552,7 +552,7 @@ class ArrayCreditLock extends HTMLElement {
         this.createEventListeners(data.reverse());
         })
         .catch(error => {
-        console.log('There was an error retrieving data', error);
+        console.log('There was an error fetching data', error);
         })
     }
 
