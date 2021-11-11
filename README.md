@@ -11,7 +11,7 @@ I used the Shadow DOM for my web component, and I noticed that the Euclid Font C
 
 In the sample page (test-1_page.html), I noticed there were many lines of code dedicated to creating locked/unlocked SVG icons, but they were not displayed on the page as far as I could tell. I included them in my code as well, but like I said, they do not appear on the page.
 
-I noticed that the unstyled html loads onto the page a split second before the stylings take effect. I'd guess this has to do with the fact that the web component script is being called before the link tags, as well as the link tags not being inside the <head> tag. 
+I noticed that the unstyled html loads onto the page a split second before the stylings take effect. I'd guess this has to do with the fact that the web component script is being called before the link tags, as well as the link tags not being inside the <head> tag, and perhaps with the lifecycle of the web component.
 
 To conclude, I found it pretty straightforward to implement the functionality and manipulate the data. My main difficulty was my lack of knowledge on the interplay of external styling/scripts within a web component. Honestly, I'd never built a web component before. I'd hope to learn more about this in the future.
 
