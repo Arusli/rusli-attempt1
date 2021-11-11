@@ -608,8 +608,9 @@ class ArrayCreditLock extends HTMLElement {
       const questions = shadowRoot.querySelectorAll('.question');
       const historyTitle = shadowRoot.querySelector('.history-title');
       const showAll = shadowRoot.querySelector('.show-all');
-      const historyItems = shadowRoot.querySelectorAll('.history-list');
+      const historyListItems = shadowRoot.querySelectorAll('.history-list');
 
+      //history title button
       historyTitle.addEventListener('click', () => {
         if (historyTitle.nextElementSibling.style.display !== 'none') {
           historyTitle.nextElementSibling.style.display = 'none';
@@ -618,7 +619,7 @@ class ArrayCreditLock extends HTMLElement {
           showAll.textContent = `Show All (${data.length})`
           
           for (let i = 4; i<data.length; i++) {
-            historyItems[i].style.display = 'none';
+            historyListItems[i].style.display = 'none';
           }
 
         } else {
@@ -628,20 +629,22 @@ class ArrayCreditLock extends HTMLElement {
         }
       });
 
+      //show all button
       showAll.addEventListener('click', () => {
         if (showAll.textContent !== 'Show Less') {
-          historyItems.forEach( e => {
-            e.style.display = 'block';
+          historyListItems.forEach( e => {
+            e.style.display = 'flex';
           })
           showAll.textContent = 'Show Less';
         } else {
           for (let i = 4; i<data.length; i++) {
-            historyItems[i].style.display = 'none';
+            historyListItems[i].style.display = 'none';
           }
           showAll.textContent = `Show All (${data.length})`;
         }
       });
 
+      //Questions Section
       questions.forEach( e => {
         e.addEventListener('click', () => {
           if (e.nextElementSibling.style.display !== 'block') {
