@@ -667,15 +667,15 @@ class ArrayCreditLock extends HTMLElement {
       let fulltime = e.date.substring(11,16);
       let hour = e.date.substring(11,13);
       let minute = e.date.substring(14,16);
-      let ampm = 'am';
+      let ampm = 'AM';
 
       if (parseInt(hour, 10) > 12 && parseInt(hour, 10) < 24) {
-        ampm = 'pm';
+        ampm = 'PM';
         hour = `${parseInt(hour, 10) - 12}`;
       }
 
       if (parseInt(hour, 10) === 24) {
-        ampm = 'am';
+        ampm = 'AM';
         hour = `${parseInt(hour, 10) - 12}`;
       }
 
