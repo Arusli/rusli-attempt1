@@ -610,7 +610,7 @@ class ArrayCreditLock extends HTMLElement {
       const showAll = shadowRoot.querySelector('.show-all');
       const historyListItems = shadowRoot.querySelectorAll('.history-list');
 
-      //history title button
+      //SHOW HISTORY BUTTON
       historyTitle.addEventListener('click', () => {
         if (historyTitle.nextElementSibling.style.display !== 'none') {
           historyTitle.nextElementSibling.style.display = 'none';
@@ -629,7 +629,7 @@ class ArrayCreditLock extends HTMLElement {
         }
       });
 
-      //show all button
+      //SHOW ALL BUTTON
       showAll.addEventListener('click', () => {
         if (showAll.textContent !== 'Show Less') {
           historyListItems.forEach( e => {
@@ -644,7 +644,7 @@ class ArrayCreditLock extends HTMLElement {
         }
       });
 
-      //Questions Section
+      //QUESTIONS SECTION
       //(I used e.parentElement.parentElement to make entire list item clickable.)
       questions.forEach( e => {
         e.parentElement.parentElement.addEventListener('click', () => {
@@ -657,8 +657,9 @@ class ArrayCreditLock extends HTMLElement {
       });
 
     }
+    // end EVENT LISTENERS
 
-    //TIMESTAMP CONVERTER
+    //TIME FORMAT PARSER
     convertDateTime(e) {
       let fulldate = e.date.substring(0, 10);
       let year = e.date.substring(0, 4);
